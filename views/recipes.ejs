@@ -1,0 +1,35 @@
+<% include global/header.ejs %>
+	<div class="main">
+		<h1>
+			<%= message %>
+		</h1>
+
+		<div class="row">
+			<div class="column">
+				<% if (recipes.length > 0) {%>
+					<% recipes.forEach((recipe, index) => { %>
+						<a href="/recipes/<%= recipe.animal %>/<%= recipe.id %>">
+							<img src="/images/<%= recipe.id %>_400x300.jpg" style="width:100%">
+						</a>
+					<% }) %>
+					</div>
+					<div class="column">
+					<% recipes.forEach((recipe, index) => { %>
+						<img src="/images/<%= recipe.id %>_recipe.jpg" style="width:100%">
+					<% }) %>            
+			</div>
+			<% } else { %>
+				<div class="row">
+					<p>No recipes found. Go <a href="/add" >here</a> to add recipe.</p>
+				</div>
+			<% } %>
+		</div>
+	</div>
+</body>
+</html>
+<footer>
+    <p>&copy; Recipes by Cj</p>
+    <address>
+        Contact <a href="mailto:cjdelduco@gmail.com">me</a>
+    </address>
+</footer>
