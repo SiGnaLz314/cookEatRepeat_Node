@@ -1,3 +1,4 @@
+//Heroku
 module.exports = {
     "mysql": {
         host: 'us-cdbr-iron-east-02.cleardb.net',
@@ -5,5 +6,15 @@ module.exports = {
         password: '15fe4e6a',
         database: 'heroku_9b6b18f18895016'
     },
-    "port": 3000
 }
+
+//localhost
+//module.exports = {
+//    "mysql": {
+//        host: 'localhost',
+//        user: 'root',
+//        password: 'password',
+//        database: 'cEr'
+//    },
+//    "port": 3000
+//}
