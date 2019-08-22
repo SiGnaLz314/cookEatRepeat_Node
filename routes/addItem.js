@@ -13,15 +13,15 @@ module.exports = {
         let animal = req.body.animal;
         let uploadedFile = req.files.image;
         let fileExtension = uploadedFile.mimetype.split('/')[1];
-        let image_name = name + "." + fileExtension
+        let image_name = "";
+        let uploadPath = "";
+        let recipeId = "";
 
         // check the filetype before uploading it
         if (uploadedFile.mimetype === 'image/png'
             || uploadedFile.mimetype === 'image/jpeg'
             || uploadedFile.mimetype === 'image/jpg'
             || uploadedFile.mimetype === 'image/gif') {
-            // upload the file to the public/images/ directory
-            uploadPath = "public/images/" + image_name;
 
             var ingredients = req.body.variables;
             var directions = req.body.algorithm;
@@ -40,20 +40,31 @@ module.exports = {
             ingredients = ingredients.join('');
             directions = directions.join('');
 
-
             //TESTING: name="testName", animal="beef", variables="test. variables.", algorithm="test. algorithm."
             //EXPECTED: (id), testName, beef, <li>test. variables</li>, <li>test. algorithm.</li>
-            let query = "INSERT INTO `recipes_test` (name, animal, variables, algorithm) VALUES ('"
-                                + name + "', '"
-                                + animal + "', '"
-                                + ingredients + "', '"
-                                + directions + "')";
-            
-            uploadedFile.mv(uploadPath, (err) => {
-                if (err) {
-                    return res.status(500).send(err);
-                }
+            //let query = "INSERT INTO `recipes_test` (name, animal, variables, algorithm) VALUES ('"
+            //                    + name + "', '"
+            //                    + animal + "', '"
+            //                    + ingredients + "', '"
+            //                    + directions + "')";
+            //LIVE Database:
+            //
+            let query = "INSERT INTO `recipes` (name, animal, variables, algorithm) VALUES ('"
+                + name + "', '"
+                + animal + "', '"
+                + ingredients + "', '"
+                + directions + "')";
+
                 conn.query(query, (err, result) => {
+                    if (err) {
+                        return res.status(500).send(err);
+                    }
+                    recipeId = result.insertId;
+                    image_name = recipeId + "_400x300." + fileExtension;
+                    //TESTING Path:
+                    //uploadPath = "public/images/test/" + image_name;
+                    uploadPath = "public/images/" + image_name;
+                    uploadedFile.mv(uploadPath, (err) => {
                     if (err) {
                         return res.status(500).send(err);
                     }
