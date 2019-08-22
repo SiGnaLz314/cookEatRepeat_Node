@@ -1,16 +1,6 @@
 var express = require('express');
 var router = express.Router();
 
-///* GET home page. */
-//router.get('/', function(req, res, next) {
-//  res.render('index.ejs', { title: 'Recipes' });
-//});
-
-//module.exports = router;
-
-
-
-/* GET beef listing. */
 module.exports = function(app) {
     app.use("/recipes", require("./recipes"))
     app.use("/upload", require("./upload"))
@@ -19,11 +9,20 @@ module.exports = function(app) {
 }
 
 
-/* GET beef listing. */
 module.exports = {
     indexPage: (req, res) => {
-        res.render('index.ejs', {
-            title: 'Recipes'
+        let message = "Hello, World!";
+
+        let query = "SELECT * FROM `recipes` ORDER BY id ASC";
+
+        conn.query(query, (err, result) => {
+            if (err) {
+                return res.status(500).send(err);
+            }
+            res.render(
+                'index.ejs',
+                { title: 'Recipes', home: 'active', message: message, recipes: result }
+            );
         });
     }
 }

@@ -1,30 +1,40 @@
 <% include global/header.ejs %>
-<div class="main">
-        <h1>
-            <%= message %>
-        </h1>
+<body>
+    <div class="topnav">
+        <a class="" href="/">Home</a>
+        <a <% if (page_name === 'beef') { %>class="active" <% } %> href="/recipes/beef">Beef</a>
+        <a <% if (page_name === 'chicken') { %>class="active" <% } %> href="/recipes/chicken">Chicken</a>
+        <a <% if (page_name === 'lamb') { %>class="active" <% } %> href="/recipes/lamb">Lamb</a>
+        <a <% if (page_name === 'pork') { %>class="active" <% } %> href="/recipes/pork">Pork</a>
+        <a <% if (page_name === 'seafood') { %>class="active" <% } %> href="/recipes/seafood">Seafood</a>
+        <a <% if (page_name === 'dessert') { %>class="active" <% } %> href="/recipes/dessert">Dessert</a>
+        <a class="" href="/addItem">Uplaod</a>
+    </div>
+	<div class="main">
+		<h1>
+			<%= message %>
+		</h1>
 
-        <div class="row">
-            <div class="column">
-                <img src="/images/<%= recipe.id %>_400x300.jpg" style="width:100%">
-                <h3>Algorithm:</h3>
-                <ol>
-					<%- recipe.algorithm %>
-                </ol>
-            </div>
-            <div class="column">
+		<div class="row">
+			<div class="column">
+				<img src="/images/<%= recipe.id %>_400x300.jpg" style="width:100%">
+				<div>
+					<h3>Algorithm:</h3>
+					<ol>
+						<%- recipe.algorithm %>
+					</ol>
+				</div>
+			</div>
+			<div class="column">
 				<h3>Variables:</h3>
-                <ul>
+				<ul>
 					<%- recipe.variables %>
-                </ul>
-            </div>
+				</ul>
+			</div>
         </div>
+
     </div>
 </body>
 </html>
-<footer>
-    <p>&copy; Recipes by Cj</p>
-    <address>
-        Contact <a href="mailto:cjdelduco@gmail.com">me</a>
-    </address>
-</footer>
+
+<% include global/footer.ejs %>

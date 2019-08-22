@@ -1,82 +1,43 @@
 ﻿<% include global/header.ejs %>
+<body>
+    <div class="topnav">
+        <a class="active" href="/">Home</a>
+        <a class="" href="/recipes/beef">Beef</a>
+        <a class="" href="/recipes/chicken">Chicken</a>
+        <a class="" href="/recipes/lamb">Lamb</a>
+        <a class="" href="/recipes/pork">Pork</a>
+        <a class="" href="/recipes/seafood">Seafood</a>
+        <a class="" href="/recipes/dessert">Dessert</a>
+        <a class="" href="/addItem">Uplaod</a>
+    </div>
     <div class="main">
         <h1>
-            Hello, World!
+            <%= message %>
         </h1>
         <h4 id="date"></h4>
 
         <div class="row">
-            <div class="column">
-                <a href="/recipes/beef/0">
-                    <img src="images/0_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/1_recipe.jpg" style="width:100%">
-                <a href="/recipes/beef/2">
-                    <img src="images/2_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/3_recipe.jpg" style="width:100%">
-                <a href="/recipes/beef/4">
-                    <img src="images/4_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/5_recipe.jpg" style="width:100%">
-                <a href="/recipes/pork/6">
-                    <img src="images/6_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/7_recipe.jpg" style="width:100%" />
-                <a href="/recipes/chicken/8">
-                    <img src="images/8_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/9_recipe.jpg" style="width:100%">
-                <a href="/recipes/beef/10">
-                    <img src="images/10_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/11_recipe.jpg" style="width:100%" />
-                <a href="/recipes/seafood/12">
-                    <img src="images/12_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/13_recipe.jpg" style="width:100%">
-                <a href="/recipes/beef/14">
-                    <img src="images/14_400x300.jpg" style="width:100%">
-                </a>
+        <% if (recipes.length > 0) {%>
+			<div class="column">
+				<% recipes.forEach((recipe, index) => { %>
+					<a href="/recipes/<%= recipe.animal %>/<%= recipe.id %>">
+					<img src="/images/<%= recipe.id %>_400x300.jpg" style="width:100%"></a>
+			    <% }) %>
+			</div>
+			<div class="column">
+		        <% recipes.forEach((recipe, index) => { %>
+			        <img src="/images/<%= recipe.id %>_recipe.jpg" style="width:100%">
+		        <% }) %>
             </div>
-            <div class="column">
-                <img src="images/0_recipe.jpg" style="width:100%">
-                <a href="/recipes/pork/1">
-                    <img src="images/1_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/2_recipe.jpg" style="width:100%">
-                <a href="/recipes/beef/3">
-                    <img src="images/3_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/4_recipe.jpg" style="width:100%">
-                <a href="/recipes/lamb/5">
-                    <img src="images/5_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/6_recipe.jpg" style="width:100%">
-                <a href="/recipes/beef/7">
-                    <img src="images/7_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/8_recipe.jpg" style="width:100%" />
-                <a href="/recipes/dessert/9">
-                    <img src="images/9_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/10_recipe.jpg" style="width:100%">
-                <a href="/recipes/pork/11">
-                    <img src="images/11_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/12_recipe.jpg" style="width:100%" />
-                <a href="/recipes/seafood/13">
-                    <img src="images/13_400x300.jpg" style="width:100%">
-                </a>
-                <img src="images/14_recipe.jpg" style="width:100%">
-            </div>
+		<% } else { %>
+			<div class="row">
+				<p>No recipes found. Go <a href="/addItem" >here</a> to add recipe.</p>
+			</div>
+		<% } %>
+
         </div>
     </div>
 </body>
 </html>
-<footer>
-    <p>&copy; Recipes by Cj</p>
-    <address>
-        Contact <a href="mailto:cjdelduco@gmail.com">me</a>
-    </address>
-</footer>
+
+<% include global/footer.ejs %>

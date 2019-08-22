@@ -67,6 +67,6 @@ body {
     color: white;
 }
 
-#output_image {
+#preview_image {
     max-width: 300px;
 }

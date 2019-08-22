@@ -6,18 +6,15 @@ var logger = require('morgan');
 var mysql = require('mysql');
 const fileUpload = require('express-fileupload');
 
-var config = require('./config')
-
-var conn = mysql.createConnection(config.mysql);
-
-
-const { indexPage } = require('./routes/index');
-//const { getBeefPage, beefRecipePage } = require('./routes/beef');
-const { addRecipePage, addRecipe } = require('./routes/upload');
-const { getAnimalPage, animalRecipePage } = require('./routes/recipes');
-
 var app = express();
 
+var config = require('./config')
+
+const { indexPage } = require('./routes/index');
+const { addRecipePage, addRecipe } = require('./routes/addItem');
+const { getAnimalPage, animalRecipePage } = require('./routes/recipes');
+
+var conn = mysql.createConnection(config.mysql);
 conn.connect(function (err) {
     if (!err) {
         console.log("Database is connected.");
@@ -44,14 +41,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', indexPage);
 
-//app.get('/beef', getBeefPage);
-//app.get('/beef/:id', beefRecipePage)
-
 app.get('/recipes/:animal', getAnimalPage)
 app.get('/recipes/:animal/:id', animalRecipePage)
 
-app.get('/add', addRecipePage);
-app.post('/add', addRecipe);
+app.get('/addItem', addRecipePage);
+app.post('/uploadItem', addRecipe);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

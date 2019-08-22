@@ -1,35 +1,42 @@
 <% include global/header.ejs %>
+<body>
+    <div class="topnav">
+        <a class="" href="/">Home</a>
+        <a <% if (page_name === 'beef') { %>class="active" <% } %> href="/recipes/beef">Beef</a>
+        <a <% if (page_name === 'chicken') { %>class="active" <% } %> href="/recipes/chicken">Chicken</a>
+        <a <% if (page_name === 'lamb') { %>class="active" <% } %> href="/recipes/lamb">Lamb</a>
+        <a <% if (page_name === 'pork') { %>class="active" <% } %> href="/recipes/pork">Pork</a>
+        <a <% if (page_name === 'seafood') { %>class="active" <% } %> href="/recipes/seafood">Seafood</a>
+        <a <% if (page_name === 'dessert') { %>class="active" <% } %> href="/recipes/dessert">Dessert</a>
+        <a class="" href="/addItem">Uplaod</a>
+    </div>
 	<div class="main">
 		<h1>
 			<%= message %>
 		</h1>
 
 		<div class="row">
+		<% if (recipes.length > 0) {%>
 			<div class="column">
-				<% if (recipes.length > 0) {%>
-					<% recipes.forEach((recipe, index) => { %>
-						<a href="/recipes/<%= recipe.animal %>/<%= recipe.id %>">
-							<img src="/images/<%= recipe.id %>_400x300.jpg" style="width:100%">
-						</a>
-					<% }) %>
-					</div>
-					<div class="column">
-					<% recipes.forEach((recipe, index) => { %>
-						<img src="/images/<%= recipe.id %>_recipe.jpg" style="width:100%">
-					<% }) %>            
+				<% recipes.forEach((recipe, index) => { %>
+					<a href="/recipes/<%= recipe.animal %>/<%= recipe.id %>">
+					<img src="/images/<%= recipe.id %>_400x300.jpg" style="width:100%"></a>
+				<% }) %>
 			</div>
-			<% } else { %>
-				<div class="row">
-					<p>No recipes found. Go <a href="/add" >here</a> to add recipe.</p>
-				</div>
-			<% } %>
+			<div class="column">
+				<% recipes.forEach((recipe, index) => { %>
+					<img src="/images/<%= recipe.id %>_recipe.jpg" style="width:100%">
+				<% }) %>            
+			</div>
+		<% } else { %>
+			<div class="row">
+				<p>No recipes found. Go <a href="/addItem" >here</a> to add recipe.</p>
+			</div>
+		<% } %>
+
 		</div>
 	</div>
 </body>
 </html>
-<footer>
-    <p>&copy; Recipes by Cj</p>
-    <address>
-        Contact <a href="mailto:cjdelduco@gmail.com">me</a>
-    </address>
-</footer>
+
+<% include global/footer.ejs %>
