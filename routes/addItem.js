@@ -11,11 +11,9 @@ module.exports = {
 
         let name = req.body.name;
         let animal = req.body.animal;
-        let file_path = 'Test';
         let uploadedFile = req.files.image;
-        let image_name = uploadedFile.name;
         let fileExtension = uploadedFile.mimetype.split('/')[1];
-        image_name = name + '.' + fileExtension;
+        let image_name = name + "." + fileExtension
 
         // check the filetype before uploading it
         if (uploadedFile.mimetype === 'image/png'
@@ -23,21 +21,34 @@ module.exports = {
             || uploadedFile.mimetype === 'image/jpg'
             || uploadedFile.mimetype === 'image/gif') {
             // upload the file to the public/images/ directory
-            uploadPath = `public/images/${name}`;
+            uploadPath = "public/images/" + image_name;
 
-            var ingredients = document.getElementById("variables");
-            var directions = document.getElementById("algorithm");
+            var ingredients = req.body.variables;
+            var directions = req.body.algorithm;
 
-            ingredients = ingredients.value.split("\n");
-            directions = directions.value.split("\n");
+            ingredients = ingredients.split("\n");
+            directions = directions.split("\n");
 
-            for (var i = 0; i < ingredients.length(); i++) {
+            for (var i = 0; i < ingredients.length; i++) {
+                ingredients[i] = ingredients[i].replace(/(?:\\[rn]|[\r\n]+)+/g, "");
                 ingredients[i] = "<li>" + ingredients[i] + "</li>";
             }
-            for (var i = 0; i < directions.length(); i++) {
-                ingredients[i] = "<li>" + ingredients[i] + "</li>";
+            for (var i = 0; i < directions.length; i++) {
+                directions[i] = directions[i].replace(/(?:\\[rn]|[\r\n]+)+/g, "");
+                directions[i] = "<li>" + directions[i] + "</li>";
             }
+            ingredients = ingredients.join('');
+            directions = directions.join('');
 
+
+            //TESTING: name="testName", animal="beef", variables="test. variables.", algorithm="test. algorithm."
+            //EXPECTED: (id), testName, beef, <li>test. variables</li>, <li>test. algorithm.</li>
+            let query = "INSERT INTO `recipes_test` (name, animal, variables, algorithm) VALUES ('"
+                                + name + "', '"
+                                + animal + "', '"
+                                + ingredients + "', '"
+                                + directions + "')";
+            
             uploadedFile.mv(uploadPath, (err) => {
                 if (err) {
                     return res.status(500).send(err);
@@ -51,8 +62,7 @@ module.exports = {
             });
         } else {
             res.render('addItem.ejs', {
-                title: 'Upload',
-                addItem: 'active'
+                title: 'Upload'
             });
         }
     }
