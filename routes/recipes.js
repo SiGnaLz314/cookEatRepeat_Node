@@ -63,18 +63,23 @@ module.exports = {
             animal = "dessert";
         }
 
-        //DEV: uncomment
+        // // TESTING query
+        // //
         //let query = "SELECT * FROM `recipes_test` WHERE id =" + JSON.stringify(recipeId);
-
-        //PROD: uncomment
+        // // end TESTING
+        // //
+        // // PRODUCTION query
+        // //
         let query = "SELECT * FROM `recipes` WHERE id =" + JSON.stringify(recipeId);
+        // //end PRODUCTION
+
         conn.query(query, (err, result) => {
             if (err) {
                 return res.status(500).send(err);
             }
             res.render(
                 'animalRecipe.ejs',
-                { title: result[0].name, page_name: page_name, message: message, recipe: result[0] }
+                { title: result[0].name, page_name: animal, message: message, recipe: result[0] }
             );
         });
     }

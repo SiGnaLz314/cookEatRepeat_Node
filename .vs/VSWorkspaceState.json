@@ -1,11 +1,13 @@
 {
   "ExpandedNodes": [
     "",
+    "\\public",
+    "\\public\\images",
     "\\public\\stylesheets",
     "\\routes",
     "\\views",
     "\\views\\global"
   ],
-  "SelectedNode": "\\app.js",
+  "SelectedNode": "\\public\\images\\16_400x300.jpg",
   "PreviewInSolutionExplorer": false
 }

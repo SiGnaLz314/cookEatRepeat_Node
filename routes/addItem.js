@@ -1,7 +1,7 @@
 
 module.exports = {
     addRecipePage: (req, res) => {
-        res.render('addItem.ejs', { title: 'addItem'});
+        res.render('addItem.ejs', { title: 'addItem' });
     },
 
     addRecipe: (req, res) => {
@@ -11,17 +11,32 @@ module.exports = {
 
         let name = req.body.name;
         let animal = req.body.animal;
-        let uploadedFile = req.files.image;
-        let fileExtension = uploadedFile.mimetype.split('/')[1];
+
+
+        let uploadedRecipeFile = req.files.image;
+        let uploadedItemFile = req.files.items;
+
+
+        let fileExtension = uploadedRecipeFile.mimetype.split('/')[1];
         let image_name = "";
+        let fileItemExtension = uploadedItemFile.mimetype.split('/')[1];
+        let item_name = "";
+
+        if (fileExtension == "jpeg" || fileItemExtension == "jpeg") {
+            fileExtension = "jpg";
+            fileItemExtension = "jpg";
+        }
+
+
         let uploadPath = "";
+        let uploadItemPath = "";
         let recipeId = "";
 
         // check the filetype before uploading it
-        if (uploadedFile.mimetype === 'image/png'
-            || uploadedFile.mimetype === 'image/jpeg'
-            || uploadedFile.mimetype === 'image/jpg'
-            || uploadedFile.mimetype === 'image/gif') {
+        if (uploadedRecipeFile.mimetype === 'image/png'
+            || uploadedRecipeFile.mimetype === 'image/jpeg'
+            || uploadedRecipeFile.mimetype === 'image/jpg'
+            || uploadedRecipeFile.mimetype === 'image/gif') {
 
             var ingredients = req.body.variables;
             var directions = req.body.algorithm;
@@ -40,31 +55,53 @@ module.exports = {
             ingredients = ingredients.join('');
             directions = directions.join('');
 
-            //TESTING: name="testName", animal="beef", variables="test. variables.", algorithm="test. algorithm."
-            //EXPECTED: (id), testName, beef, <li>test. variables</li>, <li>test. algorithm.</li>
+            // // TESTING: name="testName", animal="beef", variables="test. variables.", algorithm="test. algorithm."
+            // //   EXPECTED POST: (id), testName, beef, <li>test. variables</li>, <li>test. algorithm.</li>
+            // //
             //let query = "INSERT INTO `recipes_test` (name, animal, variables, algorithm) VALUES ('"
             //                    + name + "', '"
             //                    + animal + "', '"
             //                    + ingredients + "', '"
             //                    + directions + "')";
-            //LIVE Database:
-            //
+            // //
+            // //
+            // // LIVE Database:
+            // //
             let query = "INSERT INTO `recipes` (name, animal, variables, algorithm) VALUES ('"
                 + name + "', '"
                 + animal + "', '"
                 + ingredients + "', '"
                 + directions + "')";
+            // //
 
-                conn.query(query, (err, result) => {
+            conn.query(query, (err, result) => {
+                if (err) {
+                    return res.status(500).send(err);
+                }
+                recipeId = result.insertId;
+                image_name = recipeId + "_400x300";
+                item_name = recipeId + "_recipe";
+
+                let image_file = image_name + "." + fileExtension;
+                let item_file = item_name + "." + fileItemExtension;
+
+                // // TESTING Path:
+                // //
+                //uploadPath = "public/images/test/" + image_file;
+                //uploadItemPath = "public/images/test/" + item_file;
+                // //
+                // // PRODUCTION Path:
+                // //
+                uploadPath = "public/images/" + image_file;
+                uploadItemPath = "public/images/" + item_file;
+                // //
+
+                uploadedItemFile.mv(uploadItemPath, (err) => {
                     if (err) {
                         return res.status(500).send(err);
                     }
-                    recipeId = result.insertId;
-                    image_name = recipeId + "_400x300." + fileExtension;
-                    //TESTING Path:
-                    //uploadPath = "public/images/test/" + image_name;
-                    uploadPath = "public/images/" + image_name;
-                    uploadedFile.mv(uploadPath, (err) => {
+                });
+                uploadedRecipeFile.mv(uploadPath, (err) => {
                     if (err) {
                         return res.status(500).send(err);
                     }

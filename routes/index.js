@@ -13,7 +13,15 @@ module.exports = {
     indexPage: (req, res) => {
         let message = "Hello, World!";
 
+        // // TESTING query
+        // //
+        //let query = "SELECT * FROM `recipes_test` ORDER BY id ASC";
+        // // end TESTING
+        // //
+        // // PRODUCTION query
+        // //
         let query = "SELECT * FROM `recipes` ORDER BY id ASC";
+        // //end PRODUCTION
 
         conn.query(query, (err, result) => {
             if (err) {
