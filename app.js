@@ -48,7 +48,7 @@ function handleDisconnect() {
   connection = mysql.createPool(config.mysql); // Recreate the connection, since
                                                   // the old one cannot be reused.
 
-  connection.connect(options, function(err) {              // The server is either down
+  connection.getConnection(options, function(err) {              // The server is either down
     if(err) {                                     // or restarting (takes a while sometimes).
       console.log('error when connecting to db:', err);
       setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
