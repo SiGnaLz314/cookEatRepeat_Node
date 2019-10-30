@@ -82,5 +82,6 @@ module.exports = {
                 { title: result[0].name, page_name: animal, message: message, recipe: result[0] }
             );
         });
+        conn.end();
     }
 };

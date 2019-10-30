@@ -32,5 +32,6 @@ module.exports = {
                 { title: 'Recipes', home: 'active', message: message, recipes: result }
             );
         });
+        conn.end();
     }
 }
