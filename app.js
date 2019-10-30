@@ -15,28 +15,21 @@ const { indexPage } = require('./routes/index');
 const { addRecipePage, addRecipe } = require('./routes/addItem');
 const { getAnimalPage, animalRecipePage } = require('./routes/recipes');
 
+
 var conn = mysql.createConnection(config.mysql);
-function connectDb() {
-  conn = mysql.createConnection(config.mysql);
-  conn.connect(function (err) {
-    if (!err) {
-      console.log("Database is connected.");
-    } else {
-      connectDb();
-    }
-  });
+const options = {
+  reconnectTries: Number.MAX_VALUE
 }
-
-conn.connect(function (err) {
-  if (!err) {
-    console.log("Database is connected.");
-  } else {
-    connectDb();
-  }
+conn.connect(options, function (err) {
+    if (!err) {
+        console.log("Database is connected.");
+    } else {
+        console.error(err);
+        console.log("Error connecting Database.");
+    }
 });
-global.conn = conn;
 
-conn.on("error", connectDb());
+global.conn = conn;
 
 app.set('port', process.env.port || config.port)
 
@@ -60,12 +53,12 @@ app.get('/addItem', addRecipePage);
 app.post('/uploadItem', addRecipe);
 
 // catch 404 and forward to error handler
-app.use(function (req, res, next) {
+app.use(function(req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
