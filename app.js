@@ -18,7 +18,10 @@ const { getAnimalPage, animalRecipePage } = require('./routes/recipes');
 
 var conn = mysql.createConnection(config.mysql);
 const options = {
-  keepAlive: true,
+  useMongoClient: true, //Opts into using 4.11's conn logic
+  reconnectInterval: 500, // Reconnect every 500ms
+  poolSize: 10, // Maintain up to 10 socket connections
+  keepAlive: true, 
   reconnectTries: Number.MAX_VALUE
 }
 conn.connect(options, function (err) {
