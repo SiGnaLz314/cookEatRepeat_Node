@@ -15,15 +15,24 @@ const { indexPage } = require('./routes/index');
 const { addRecipePage, addRecipe } = require('./routes/addItem');
 const { getAnimalPage, animalRecipePage } = require('./routes/recipes');
 
-var conn = mysql.createConnection(config.mysql);
-conn.connect(function (err) {
-    if (!err) {
-        console.log("Database is connected.");
-    } else {
-        console.error(err);
-        console.log("Error connecting Database.");
-    }
-});
+
+var conn;
+function connectDb() {
+  conn  = mysql.createConnection(config.mysql);
+  conn.on('error', connectDb()); // probably worth adding timeout / throttle / etc
+}
+
+connectDb();
+
+// var conn = mysql.createConnection(config.mysql);
+// conn.connect(function (err) {
+//     if (!err) {
+//         console.log("Database is connected.");
+//     } else {
+//         console.error(err);
+//         console.log("Error connecting Database.");
+//     }
+// });
 global.conn = conn;
 
 app.set('port', process.env.port || config.port)

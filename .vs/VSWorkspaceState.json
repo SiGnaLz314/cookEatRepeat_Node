@@ -1,13 +1,9 @@
 {
   "ExpandedNodes": [
     "",
-    "\\public",
-    "\\public\\images",
-    "\\public\\stylesheets",
-    "\\routes",
-    "\\views",
-    "\\views\\global"
+    "\\bin",
+    "\\routes"
   ],
-  "SelectedNode": "\\public\\images\\16_400x300.jpg",
+  "SelectedNode": "\\routes\\addItem.js",
   "PreviewInSolutionExplorer": false
 }
