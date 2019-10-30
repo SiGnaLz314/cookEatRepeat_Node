@@ -16,24 +16,58 @@ const { addRecipePage, addRecipe } = require('./routes/addItem');
 const { getAnimalPage, animalRecipePage } = require('./routes/recipes');
 
 
-var conn = mysql.createConnection(config.mysql);
-const options = {
-  useMongoClient: true, //Opts into using 4.11's conn logic
-  reconnectInterval: 500, // Reconnect every 500ms
-  poolSize: 10, // Maintain up to 10 socket connections
-  keepAlive: true, 
-  reconnectTries: Number.MAX_VALUE
-}
-conn.connect(options, function (err) {
-    if (!err) {
-        console.log("Database is connected.");
-    } else {
-        console.error(err);
-        console.log("Error connecting Database.");
-    }
-});
+// var conn = mysql.createConnection(config.mysql);
+// const options = {
+//   useMongoClient: true, //Opts into using 4.11's conn logic
+//   reconnectInterval: 500, // Reconnect every 500ms
+//   poolSize: 10, // Maintain up to 10 socket connections
+//   keepAlive: true, 
+//   reconnectTries: Number.MAX_VALUE
+// }
+// conn.connect(options, function (err) {
+//     if (!err) {
+//         console.log("Database is connected.");
+//     } else {
+//         console.error(err);
+//         console.log("Error connecting Database.");
+//     }
+// });
 
-global.conn = conn;
+// global.conn = conn;
+
+var connection;
+const options = {
+    useMongoClient: true, //Opts into using 4.11's conn logic
+    reconnectInterval: 500, // Reconnect every 500ms
+    poolSize: 10, // Maintain up to 10 socket connections
+    keepAlive: true, 
+    reconnectTries: Number.MAX_VALUE
+  }
+
+function handleDisconnect() {
+  connection = mysql.createConnection(db_config); // Recreate the connection, since
+                                                  // the old one cannot be reused.
+
+  connection.connect(options, function(err) {              // The server is either down
+    if(err) {                                     // or restarting (takes a while sometimes).
+      console.log('error when connecting to db:', err);
+      setTimeout(handleDisconnect, 2000); // We introduce a delay before attempting to reconnect,
+    }                                     // to avoid a hot loop, and to allow our node script to
+  });                                     // process asynchronous requests in the meantime.
+                                          // If you're also serving http, display a 503 error.
+  connection.on('error', function(err) {
+    console.log('db error', err);
+    if(err.code === 'PROTOCOL_CONNECTION_LOST') { // Connection to the MySQL server is usually
+      handleDisconnect();                         // lost due to either server restart, or a
+    } else {                                      // connnection idle timeout (the wait_timeout
+      throw err;                                  // server variable configures this)
+    }
+  });
+}
+
+handleDisconnect();
+
+global.conn = connection;
 
 app.set('port', process.env.port || config.port)
 
