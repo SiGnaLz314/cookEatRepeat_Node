@@ -33,6 +33,8 @@ conn.connect(function (err) {
 });
 global.conn = conn;
 
+conn.on("error", connectDb());
+
 app.set('port', process.env.port || config.port)
 
 // view engine setup

@@ -20,3 +20,7 @@ npm start
 *Ensure MySQL is running (Xampp)
 **Xampp may be located in C:\xampp run xampp-config
 ***SQL SERVER blocks some ports, need to open SSMS and force stop.
+
+HEROKU:
+https://dashboard.heroku.com/apps/cookeatrepeat
+- Addons allow for further configuration (click on Addon in Dashboard)
