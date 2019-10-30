@@ -113,7 +113,6 @@ module.exports = {
                 title: 'Upload'
             });
         }
-        conn.end();
     }
 }
 
