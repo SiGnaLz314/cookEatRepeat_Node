@@ -69,6 +69,8 @@ handleDisconnect();
 
 global.conn = connection;
 
+connection.end();
+
 app.set('port', process.env.port || config.port)
 
 // view engine setup
