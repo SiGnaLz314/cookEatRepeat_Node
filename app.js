@@ -18,6 +18,7 @@ const { getAnimalPage, animalRecipePage } = require('./routes/recipes');
 
 var conn = mysql.createConnection(config.mysql);
 const options = {
+  keepAlive: true,
   reconnectTries: Number.MAX_VALUE
 }
 conn.connect(options, function (err) {
