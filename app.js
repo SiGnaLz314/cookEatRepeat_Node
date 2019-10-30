@@ -16,23 +16,21 @@ const { addRecipePage, addRecipe } = require('./routes/addItem');
 const { getAnimalPage, animalRecipePage } = require('./routes/recipes');
 
 
-var conn;
+var connection;
 function connectDb() {
-  conn  = mysql.createConnection(config.mysql);
-  conn.on('error', connectDb()); // probably worth adding timeout / throttle / etc
+  connection  = mysql.createConnection(config.mysql);
+  connection.on('error', connectDb()); // probably worth adding timeout / throttle / etc
 }
 
-connectDb();
 
-// var conn = mysql.createConnection(config.mysql);
-// conn.connect(function (err) {
-//     if (!err) {
-//         console.log("Database is connected.");
-//     } else {
-//         console.error(err);
-//         console.log("Error connecting Database.");
-//     }
-// });
+var conn = mysql.createConnection(config.mysql);
+conn.connect(function (err) {
+    if (!err) {
+        console.log("Database is connected.");
+    } else {
+        connectDb();
+    }
+});
 global.conn = conn;
 
 app.set('port', process.env.port || config.port)
