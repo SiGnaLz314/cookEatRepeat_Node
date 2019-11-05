@@ -1,13 +1,13 @@
 //Heroku: uncomment below code
 //
 module.exports = {
-    "mysql": {
-        host: 'us-cdbr-iron-east-05.cleardb.net',
-        user: 'b4a46183c4ea6d',
-        password: 'c10e285a',
-        database: 'heroku_9998e45e64d88d6'
-    }
- }
+   "mysql": {
+       host: 'HEROKU HOST from configVars',
+       user: 'Your UserName',
+       password: 'Your Password',
+       database: 'Your Database'
+   }
+}
 
 
 //localhost: uncomment below code
