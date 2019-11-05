@@ -19,9 +19,9 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 	$ cd ../project_folder/
 	$ npm start
 	```
-*Ensure MySQL is running (Xampp or Workbench)*
-*Xampp may be located in C:\xampp run xampp-config*
-*SQL SERVER blocks some ports, need to open SSMS and force stop.*
+	- *Ensure MySQL is running (Xampp or Workbench)*
+	- *Xampp may be located in C:\xampp run xampp-config*
+	- *SQL SERVER blocks some ports, need to open SSMS and force stop.*
 
 
 ## TESTING LOCAL:
@@ -54,9 +54,9 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 
 ## LOCAL Setup:
 1. Follow instructions to setup mySQL: 
-	[mySQL WAMP Server](https://www.ionos.com/digitalguide/server/tools/xampp-tutorial-create-your-own-local-test-server/) 
-	###or
-	[MySQL Workbench](https://dev.mysql.com/doc/workbench/en/)
+	- [mySQL WAMP Server](https://www.ionos.com/digitalguide/server/tools/xampp-tutorial-create-your-own-local-test-server/) 
+	> **or**
+	- [MySQL Workbench](https://dev.mysql.com/doc/workbench/en/)
 	*There are other resources available, please use your own if you see fit*
 2. Ensure config.js file is switched to local instance.
 3. Create Database
@@ -98,7 +98,7 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 		heroku  <Your Heroku Address> (push)
 		```
 7. Add configVars from HerokuApp > Settings page to config.js file in root directory of App.
-	*found under **CLEARDB_DATABASE_URL***
+	- *found under **CLEARDB_DATABASE_URL***
 8. Handle Dependencies:
 	- Open CMD at project root:
 		```
@@ -109,9 +109,10 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 10. ClearDB Addon create database:
 	- Follow **DatabaseConnection** Instructions
 	
-11. ****SECURITY*****When pushing to Heroku and GitHub:
+11. ** * **SECURITY** * ** 
+	- When pushing to *Heroku* and *GitHub*:
 	1. Add config.js to .gitignore file so it will not push to GitHub, and Remove it from .gitignore when pushing to Heroku.
-	### - OR
+	> **or**
 	 - When pushing to Heroku ensure configVars are correct when you push, and Jibberish (or Blank) when pushing to GitHub.
 	2. Open CMD:
 		```
@@ -130,7 +131,7 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 2. *HEROKU* Connect to ClearDB
 	- On Workbench Homepage Add New Connection
 	- Enter Details as copied to config.js
-### - OR
+> **or**
 2. *Local* Connect to instance by ensuring config.js files match connection details.
 *Test Connection*
 3. Open the new connection in Workbench (or through xampp admin counsel)
@@ -146,11 +147,11 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 			PRIMARY KEY (`id`)
 		) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8
 		```
-### - OR
-4. Import .csv file, in public folder, with starter set of recipes and create table on import.
-	** FOR TESTING: Create an additional table called `recipes_test` with the same query. **
+> **or**
+4. Import .csv file, in ..public/setup/ folder, with starter set of recipes and create table on import.
+	**FOR TESTING: Create an additional table called `recipes_test` with the same query.**
 5. Ensure (id) is set to Primary Key and AutoIncrement is enabled on table information.
 6. *HEROKU* push to heroku master and open HerkoApp to run.
-### - OR
+> **or**
 6. *LOCAL* follow **RUN** Instructions above.
 	
