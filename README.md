@@ -38,7 +38,7 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 
 
 ### config.js
-- Open and check Server Setup:
+- Open and check config:
 	```javascript
 		module.exports = {
 			"mysql": {
@@ -57,7 +57,7 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 	- [mySQL WAMP Server](https://www.ionos.com/digitalguide/server/tools/xampp-tutorial-create-your-own-local-test-server/) 
 	> **or**
 	- [MySQL Workbench](https://dev.mysql.com/doc/workbench/en/)
-	*There are other resources available, please use your own if you see fit*
+	- *There are other resources available, please use your own if you see fit*
 2. Ensure config.js file is switched to local instance.
 3. Create Database
 	- Follow **DatabaseConnection** Instructions
@@ -109,7 +109,7 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 10. ClearDB Addon create database:
 	- Follow **DatabaseConnection** Instructions
 	
-11. _** *SECURITY* **_
+11. __** *SECURITY* **__
 	- When pushing to *Heroku* and *GitHub*:
 	1. Add config.js to .gitignore file so it will not push to GitHub, and Remove it from .gitignore when pushing to Heroku.
 	> **or**
@@ -128,11 +128,11 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 	
 ## Database Connection:	
 1. Open MySQL Workbench
-2. _**HEROKU**_ Connect to ClearDB
+2. __**HEROKU**__ Connect to ClearDB
 	- On Workbench Homepage Add New Connection
 	- Enter Details as copied to config.js
 > **or**
-2. _**Local**_ Connect to instance by ensuring config.js files match connection details.
+2. __**Local**__ Connect to instance by ensuring config.js files match connection details.
 *Test Connection*
 3. Open the new connection in Workbench (or through xampp admin counsel)
 4. Create Tables and Import Data
@@ -151,7 +151,7 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 4. Import .csv file, in ..public/setup/ folder, with starter set of recipes and create table on import.
 	- **FOR TESTING: Create an additional table called `recipes_test` with the same query.**
 5. Ensure (id) is set to Primary Key and AutoIncrement is enabled on table information.
-6. _**HEROKU**_ push to heroku master and open HerkoApp to run.
+6. __**HEROKU**__ push to heroku master and open HerkoApp to run.
 > **or**
-6. _**LOCAL**_ follow **RUN** Instructions above.
+6. __**LOCAL**__ follow **RUN** Instructions above.
 	
