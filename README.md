@@ -109,7 +109,7 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 10. ClearDB Addon create database:
 	- Follow **DatabaseConnection** Instructions
 	
-11. ** * **SECURITY** * ** 
+11. _** *SECURITY* **_
 	- When pushing to *Heroku* and *GitHub*:
 	1. Add config.js to .gitignore file so it will not push to GitHub, and Remove it from .gitignore when pushing to Heroku.
 	> **or**
@@ -128,16 +128,16 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 	
 ## Database Connection:	
 1. Open MySQL Workbench
-2. *HEROKU* Connect to ClearDB
+2. _**HEROKU**_ Connect to ClearDB
 	- On Workbench Homepage Add New Connection
 	- Enter Details as copied to config.js
 > **or**
-2. *Local* Connect to instance by ensuring config.js files match connection details.
+2. _**Local**_ Connect to instance by ensuring config.js files match connection details.
 *Test Connection*
 3. Open the new connection in Workbench (or through xampp admin counsel)
 4. Create Tables and Import Data
-	-Execute Query: (can be found by opening an existing tables "info" & copying DDL)
-		```sql
+	- EXECUTE QUERY:
+		```
 		CREATE TABLE `recipes` (
 			`id` int(11) NOT NULL AUTO_INCREMENT,
 			`name` varchar(50) NOT NULL,
@@ -149,9 +149,9 @@ A working prototype, proof of concept, test environment, aiding in the creation 
 		```
 > **or**
 4. Import .csv file, in ..public/setup/ folder, with starter set of recipes and create table on import.
-	**FOR TESTING: Create an additional table called `recipes_test` with the same query.**
+	- **FOR TESTING: Create an additional table called `recipes_test` with the same query.**
 5. Ensure (id) is set to Primary Key and AutoIncrement is enabled on table information.
-6. *HEROKU* push to heroku master and open HerkoApp to run.
+6. _**HEROKU**_ push to heroku master and open HerkoApp to run.
 > **or**
-6. *LOCAL* follow **RUN** Instructions above.
+6. _**LOCAL**_ follow **RUN** Instructions above.
 	
